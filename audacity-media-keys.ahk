@@ -3,6 +3,8 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
+#InputLevel 10
+
 Media_Play_Pause::
    OutputDebug, AHK Play Pause Triggered
    
@@ -20,12 +22,23 @@ Media_Next::
 Return
 
 Media_Prev::
-   OutputDebug, AHK Prev TriggeredA
+   OutputDebug, AHK Prev Triggered
    
    ; Using Audacity's default keyboard shortcut scheme, {left} is jump back 1sec
    ; but while stopped {,} does the same thing
    SendCommandToAudacity("{Left}", "{,}")
 Return
+
+if %1% = "mapFkeys"
+{
+    #InputLevel 20
+    F9::Media_Prev
+    F10::Media_Play_Pause
+    F11::Media_Next
+}
+
+#InputLevel 0
+
 
 SendCommandToAudacity(key, alternateKey := "")
 {
@@ -42,13 +55,10 @@ SendCommandToAudacity(key, alternateKey := "")
         return
     }
     
-    ; activate audacity
-    WinActivate, ahk_id %AudacityId%
-    
     if (alternateKey <> "") and (true) 
     {
         ; "wxWindowNR6" is the Stop buttonA
-        ControlGet, StopEnabled, Enabled, , Stop, ahk_id %AudacityId%
+        ControlGet, StopEnabled, Enabled, , wxWindowNR6, ahk_id %AudacityId%
         OutputDebug, AHK Stop button enabled? %StopEnabled%
         
         if (not StopEnabled)
@@ -58,6 +68,9 @@ SendCommandToAudacity(key, alternateKey := "")
         }
     }
     
+    ; activate audacity
+    WinActivate, ahk_id %AudacityId%
+
     ; Trigger supplied keyboard shortcut
     OutputDebug, AHK Firing key combo %key%
     SendInput, %key%
@@ -67,7 +80,12 @@ SendCommandToAudacity(key, alternateKey := "")
 }
 
 AudacityNotRunning() {
-    OutputDebug, AHK Audacity not running - forwarding %A_ThisHotkey%
-    ;Send, {%A_ThisHotkey%};;;;;;llooop!
-    ;MsgBox, Audacity is not open - please open it and load a file.`nReminder: Normal media key functionality is suppressed while audacity-media-keys is running!`nExit to restore normal behaviour.
+    OutputDebug, AHK Audacity not running - forwarding %A_ThisHotkey%, SendLevel %A_SendLevel%
+
+    SendLevel, 0
+
+    ; send the keypress back to the system
+    Send, {%A_ThisHotkey%}
+
+    OutputDebug, AHK SendLevel %A_SendLevel%
 }
