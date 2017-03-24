@@ -14,16 +14,16 @@ This was created for a very specific use case:
 
 1. Go to the [_Releases_](https://github.com/atruskie/audacity-media-keys/releases) page
 2. Download the lastest `audacity-media-keys.exe`
-  - Ignore Chrome's security warning, click the arrow symbol, choose _Keep_
+    - Ignore Chrome's security warning, click the arrow symbol, choose _Keep_
 3. Once downloaded, run `audacity-media-keys.exe` to install it
-  - Ignore Window's security warning by clicking _More info_ and then _Run anyway_
+    - Ignore Window's security warning by clicking _More info_ and then _Run anyway_
 4. Run the script by using the new shortcuts on your desktop
 
 # Manual install
 
 1. Install _AutoHotkey_
-  - `choco install autohotkey`
-  - Or do a manual install by getting the installer from https://autohotkey.com/download/
+    - `choco install autohotkey`
+    - Or do a manual install by getting the installer from https://autohotkey.com/download/
 2. Download the `audacity-media-keys.ahk` script and save it to:
 `..\Documents\AutoHotkey\audacity-media-keys.ahk`
 3. Double click on the supplied `audacity-media-keys.ahk` file to run it
@@ -34,7 +34,7 @@ Lastly, if you do not have media keys on your keyboard you can enable the `mapFK
 
 1. Create a shortcut to the `audacity-media-keys.ahk` script
 2. In the shortcut's _Properties_, add the string ` mapFKeys` on to the end of the _Target_ field
-  - ensure there is a space between the previous text and the new `mapFKeys` text
+    - ensure there is a space between the previous text and the new `mapFKeys` text
 3. Click on that shortcut to run the script
 
 # Usage
