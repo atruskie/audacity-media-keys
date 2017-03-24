@@ -17,13 +17,17 @@ after_build:
     - ps: Start-Sleep 3
     - ps: .\rcedit.exe .\audacity-media-keys.exe --set-file-version "$($env:APPVEYOR_BUILD_VERSION)" --set-product-version "$($env:APPVEYOR_BUILD_VERSION)"
 
+artifacts:
+    - path: audacity-media-keys.exe
+      name: audacity-media-keys
+
 deploy:
     release: audacity-media-keys-v$(appveyor_build_version)
     description: "Automated build for Audacity Media Keys version $(appveyor_build_version)"
     provider: GitHub
     auth_token:
         secure: yNOwLhCJ5HATMK2de8MqPgshnP8WkpH03fHO0IbMFtAh2OAH7Vwg9qrzIweW0Tlk
-    artifact: *audacity-media-keys.exe
+    artifact: '*audacity-media-keys.exe'
     draft: false
     prerelease: false
     on:
