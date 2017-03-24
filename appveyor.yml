@@ -15,7 +15,7 @@ install:
 
 build_script:
     - ps: . "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" /in audacity-media-keys.ahk /out audacity-media-keys.exe /mpress 1
-    - ps: .\rcedit.exe .\audacity-media-keys.exe --set-file-version "$(appveyor_build_version)" --set-product-version "$(appveyor_build_version)"
+    - ps: .\rcedit.exe .\audacity-media-keys.exe --set-file-version "$($env:APPVEYOR_BUILD_VERSION)" --set-product-version "$($env:APPVEYOR_BUILD_VERSION)"
 
 deploy:
     release: audacity-media-keys-v$(appveyor_build_version)
