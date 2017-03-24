@@ -5,6 +5,8 @@ branches:
   only:
     - master
 
+skip_tags: true
+
 install:
     - cinst autohotkey
     - ps: (new-object net.webclient).DownloadFile('https://github.com/electron/rcedit/releases/download/v0.1.0/rcedit.exe',  "$pwd\rcedit.exe")
@@ -21,7 +23,7 @@ deploy:
     provider: GitHub
     auth_token:
         secure: yNOwLhCJ5HATMK2de8MqPgshnP8WkpH03fHO0IbMFtAh2OAH7Vwg9qrzIweW0Tlk
-    artifact: audacity-media-keys.exe
+    artifact: *audacity-media-keys.exe
     draft: false
     prerelease: false
     on:
