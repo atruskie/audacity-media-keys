@@ -1,6 +1,6 @@
 # Audacity Media Keys
 
-[![Build status](https://ci.appveyor.com/api/projects/status/bucrrf2eybpqeurf?svg=true)](https://ci.appveyor.com/project/antmt/audacity-media-keys
+[![Build status](https://ci.appveyor.com/api/projects/status/bucrrf2eybpqeurf?svg=true)](https://ci.appveyor.com/project/antmt/audacity-media-keys)
 
 This is an AutoHotKey script that allows binding the media keys on the keyboard
 to Audacity's playback function.
@@ -12,9 +12,11 @@ This was created for a very specific use case:
 
 # Download and Install
 
-1. Go to the _Releases_ page
+1. Go to the [_Releases_](https://github.com/atruskie/audacity-media-keys/releases) page
 2. Download the lastest `audacity-media-keys.exe`
+  - Ignore Chrome's security warning, click the arrow symbol, choose _Keep_
 3. Once downloaded, run `audacity-media-keys.exe` to install it
+  - Ignore Window's security warning by clicking _More info_ and then _Run anyway_
 4. Run the script by using the new shortcuts on your desktop
 
 # Manual install
