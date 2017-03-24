@@ -15,13 +15,13 @@ install:
 
 build_script:
     - ps: . "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" /in audacity-media-keys.ahk /out audacity-media-keys.exe /mpress 1
-    - ps: ls
+after_build:
     - ps: .\rcedit.exe .\audacity-media-keys.exe --set-file-version "$($env:APPVEYOR_BUILD_VERSION)" --set-product-version "$($env:APPVEYOR_BUILD_VERSION)"
 
 deploy:
     release: audacity-media-keys-v$(appveyor_build_version)
     description: "Automated build for Audacity Media Keys version $(appveyor_build_version)"
-    provider: Github
+    provider: GitHub
     auth_token: gh_token
     artifact: audacity-media-keys.exe
     draft: false
@@ -29,8 +29,3 @@ deploy:
     on:
         branch: master
         appveyor_repo_tag: false
-
-init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
