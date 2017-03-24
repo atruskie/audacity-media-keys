@@ -27,7 +27,7 @@ deploy:
     provider: GitHub
     auth_token:
         secure: yNOwLhCJ5HATMK2de8MqPgshnP8WkpH03fHO0IbMFtAh2OAH7Vwg9qrzIweW0Tlk
-    artifact: '*audacity-media-keys.exe'
+    artifact: audacity-media-keys
     draft: false
     prerelease: false
     on:
