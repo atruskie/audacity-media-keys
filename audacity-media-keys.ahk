@@ -1,7 +1,31 @@
 ﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+;SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+
+; install routine
+; if file not in Documents\AutoHotkey
+ExpectedDir := A_MyDocuments "\AutoHotkey"
+OutputDebug, AHK Checking %ExpectedDir% is the same as %A_ScriptDir%
+if A_ScriptDir <> %ExpectedDir%
+{
+    ExpectedPath := ExpectedDir "\" A_ScriptName
+    OutputDebug, AHK Installing to %ExpectedPath%
+
+    ; copy the exe/script
+    FileCreateDir, %ExpectedDir%
+    FileCopy, %A_ScriptFullPath%, %ExpectedPath%, 1
+
+    ; create shortcuts on desktop
+    OutputDebug, AHK Creating shortcuts %A_Desktop%\Audacity Media Keys.lnk
+    FileCreateShortcut, %ExpectedPath%, %A_Desktop%\Audacity Media Keys.lnk
+    FileCreateShortcut, %ExpectedPath%, %A_Desktop%\Audacity Media Keys (with F9-F11).lnk, , mapFKeys
+
+    MsgBox, "Audacity Media Keys has been installed!`nUse the shortcuts on your Desktop to start."
+    ExitApp, 0
+}
+
+; actual logic
 
 #InputLevel 10
 
@@ -29,15 +53,30 @@ Media_Prev::
    SendCommandToAudacity("{Left}", "{,}")
 Return
 
+#InputLevel 0
+
 if %1% = "mapFkeys"
 {
-    #InputLevel 20
-    F9::Media_Prev
-    F10::Media_Play_Pause
-    F11::Media_Next
+    F9::
+        SendLevel, 20
+        SendEvent {Media_Prev}
+        SendLevel, 0
+    Return
+
+    F10::
+        SendLevel, 20
+        SendEvent {Media_Play_Pause}
+        SendLevel, 0
+    Return
+
+    F11::
+        SendLevel, 20
+        SendEvent {Media_Next}
+        SendLevel, 0
+    Return
 }
 
-#InputLevel 0
+
 
 
 SendCommandToAudacity(key, alternateKey := "")
