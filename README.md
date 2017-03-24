@@ -1,5 +1,7 @@
 # Audacity Media Keys
 
+[![Build status](https://ci.appveyor.com/api/projects/status/bucrrf2eybpqeurf?svg=true)](https://ci.appveyor.com/project/antmt/audacity-media-keys
+
 This is an AutoHotKey script that allows binding the media keys on the keyboard
 to Audacity's playback function.
 

@@ -1,0 +1,35 @@
+version: '1.0.{build}'
+
+branches:
+  # whitelist
+  only:
+    - master
+
+skip_tags: true
+
+install:
+    - cinst autohotkey
+    - ps: (new-object net.webclient).DownloadFile('https://github.com/electron/rcedit/releases/download/v0.1.0/rcedit.exe',  "$pwd\rcedit.exe")
+
+build_script:
+    - ps: . "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" /in audacity-media-keys.ahk /out audacity-media-keys.exe /mpress 1
+after_build:
+    - ps: Start-Sleep 3
+    - ps: .\rcedit.exe .\audacity-media-keys.exe --set-file-version "$($env:APPVEYOR_BUILD_VERSION)" --set-product-version "$($env:APPVEYOR_BUILD_VERSION)"
+
+artifacts:
+    - path: audacity-media-keys.exe
+      name: audacity-media-keys
+
+deploy:
+    release: audacity-media-keys-v$(appveyor_build_version)
+    description: "Automated build for Audacity Media Keys version $(appveyor_build_version)"
+    provider: GitHub
+    auth_token:
+        secure: yNOwLhCJ5HATMK2de8MqPgshnP8WkpH03fHO0IbMFtAh2OAH7Vwg9qrzIweW0Tlk
+    artifact: audacity-media-keys
+    draft: false
+    prerelease: false
+    on:
+        branch: master
+        appveyor_repo_tag: false
