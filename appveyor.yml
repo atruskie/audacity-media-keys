@@ -14,7 +14,7 @@ install:
     - ps: (new-object net.webclient).DownloadFile('https://github.com/electron/rcedit/releases/download/v0.1.0/rcedit.exe', 'rcedit.exe')
 
 build_script:
-    - cmd: C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe /in audacity-media-keys.ahk /out audacity-media-keys.exe /mpress 1
+    - ps: . "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" /in audacity-media-keys.ahk /out audacity-media-keys.exe /mpress 1
     - .\rcedit.exe .\audacity-media-keys.exe --set-file-version "$(appveyor_build_version) --set-product-version "$(appveyor_build_version)"
 
 deploy:
